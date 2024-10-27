@@ -1,3 +1,24 @@
+@font-face {
+    font-family: Agave;
+    src: './fonts/Agave-Bold.ttf';
+}
+
+
 body {
-    background-color: rgb(77, 77, 77);
+    background-color: rgb(192, 180, 180);
+}
+
+.board-vals {
+    border-width: 1px;
+    outline: 0;
+    border-radius: 5px;
+    height: 25px;
+    width: 200px;
+    float: right;
+}
+
+.file-button {
+    border-width: 0.5px;
+    border-radius: 5px;
+    font-size: 15px;
 }

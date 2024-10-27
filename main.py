@@ -1,5 +1,4 @@
 import eel
-from random import randint
 import tkinter
 from tkinter import filedialog
 
@@ -20,7 +19,7 @@ def selectFolder():
     directory_path = filedialog.askopenfile(
         title="Upload Image", filetypes=[("Image Files", "*.png;*.jpeg;*.jpg")]
     )  # return path of file
-    print(directory_path)
+    print(directory_path.name)
     return 0
 
 

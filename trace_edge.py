@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 
 class xy_image:
@@ -7,9 +8,6 @@ class xy_image:
         self.img = cv2.imread("./test_images/" + path)
 
     def detect_edge(self):
-        # Display original image
-        cv2.imshow("Original", self.img) #comment out if you dont want to show image
-
         # Convert to grayscale
         self.img_gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
 
@@ -22,13 +20,30 @@ class xy_image:
         )  # Canny Edge Detection
 
         # Allows for smoother edges
-        smoothed_edges = cv2.GaussianBlur(edges, (5, 5), 0)  # Smooth the edges
+        self.array = np.array(
+            cv2.GaussianBlur(edges, (5, 5), 0), dtype=bool
+        )  # Smooth the edges
 
-        # More pointy
-        # smoothed_edges = cv2.bilateralFilter(edges, 9, 75, 75)
+        self.white = self.array.sum()
 
-        # Display the smoothed Canny Edge Detection Image
-        cv2.imshow("Smoothed Canny Edge Detection", smoothed_edges)
+    def search(self, y, x):
+        rows, cols = self.array.shape
+        found = []
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Adjacent cells only
 
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        for dy, dx in directions:
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < rows and 0 <= nx < cols and self.array[ny, nx]:
+                found.append((ny, nx))
+                self.array[ny, nx] = False  # Mark as visited
+
+        return found
+
+    def find(self, r, c):
+        # function to find a white pixel in the image given a point
+        for i in range(r, len(self.array)):
+            for j in range(c, len(self.array[0])):
+                if self.array[i][j]:
+                    self.array[i][j] = False
+                    return (i, j)
+        return [-1, -1]

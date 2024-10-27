@@ -1,6 +1,4 @@
-// Onclick of the button
-document.querySelector("button").onclick = function () {  
-    // Call python's random_python function
-    eel.selectFolder()
-  }
+document.getElementById('file-button').onclick = function() {
+  eel.selectFolder();
+}
   
