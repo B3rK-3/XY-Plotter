@@ -22,6 +22,20 @@ def selectFolder():
     print(directory_path.name)
     return 0
 
+height = 0
+width = 0
+
+@eel.expose
+def setWidth(w):
+    global width
+    width = w
+    print(width)
+    
+@eel.expose
+def setHeight(h):
+    global height
+    height = h
+    print(height)
 
 # Start the index.html file
 eel.start("index.html")
