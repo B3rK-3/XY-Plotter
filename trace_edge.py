@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
+from collections import deque
 
 
 class xy_image:
-    def __init__(self, path):
+    def __init__(self):
         # Read the original image
-        self.img = cv2.imread("./test_images/" + path)
+        self.img = cv2.imread("./web/upload_img/img.png")
 
     def detect_edge(self):
         # Convert to grayscale
@@ -20,9 +21,12 @@ class xy_image:
         )  # Canny Edge Detection
 
         # Allows for smoother edges
-        self.array = np.array(
-            cv2.GaussianBlur(edges, (5, 5), 0), dtype=bool
-        )  # Smooth the edges
+        img = edges  # Smooth the edges
+
+        # convert to bool array to decrease runtime
+        self.array = np.array(img, dtype=bool)
+
+        cv2.imwrite("./web/export_img/export.png", img)
 
         self.white = self.array.sum()
 
@@ -39,7 +43,7 @@ class xy_image:
 
         return found
 
-    def find(self, r, c):
+    def findWhite(self, r, c):
         # function to find a white pixel in the image given a point
         for i in range(r, len(self.array)):
             for j in range(c, len(self.array[0])):
@@ -47,3 +51,45 @@ class xy_image:
                     self.array[i][j] = False
                     return (i, j)
         return [-1, -1]
+
+    def findPath(self):
+        # create a path which the robot will follow
+        path = []
+        # double ended list
+        q = deque()
+        r, c = 0, 0  # initialize a point that we can continue searching for points from
+        first = self.findWhite(r, c)  # find first point
+        r, c = first  # set the point to the newly found to continue from there
+        # append first white to queue and path
+        q.append(first)
+        path.append(first)
+
+        # performance testing ---
+        # start = time.time()
+
+        whites = self.white
+
+        while len(path) != whites:
+            # if queue has elements we should continue finding from there
+            if q:
+                node = q.popleft()
+                path.append(node)
+                q.extend(self.search(node[0], node[1]))
+            else:
+                # if queue is exahusted find new point
+                p = self.findWhite(r, c)
+                r, c = p
+                q.append(p)
+                path.append(p)
+        # performance testing ---
+        # end = time.time()
+        return path
+
+
+class write_img:
+    def __init__(self, path):
+        data = None
+        with open(path, "rb") as file:
+            data = file.read()
+        with open("./web/upload_img/img.png", "wb") as file:
+            file.write(data)
