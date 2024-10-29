@@ -6,7 +6,7 @@ import os
 
 eel.init("web")
 
-path = ""
+path = []
 height = 0
 width = 0
 xy_plotter = None
@@ -55,19 +55,30 @@ def jsPrint(msg):
 @eel.expose
 def writeImg():
     write_img(path)
+    return 0
 
 
 @eel.expose
 def trace_edge():
     global xy_plotter
+    global path
+    path = []
     xy_plotter = xy_image()
     xy_plotter.detect_edge()
+    return 0
 
 
 @eel.expose
 def findPath():
     global path
-    path = xy_plotter.findPath()
+    if xy_plotter:
+        print('finding path')
+        path = xy_plotter.findPath()
+        print('found path')
+        return 0
+    else:
+        print('no image')
+        return 1
 
 
 def removeFiles(w, w1):

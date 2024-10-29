@@ -6,7 +6,7 @@ from collections import deque
 class xy_image:
     def __init__(self):
         # Read the original image
-        self.img = cv2.imread("./web/upload_img/img.png")
+        self.img = cv2.imread("./web/upload_img/img.jpg")
 
     def detect_edge(self):
         # Convert to grayscale
@@ -26,7 +26,7 @@ class xy_image:
         # convert to bool array to decrease runtime
         self.array = np.array(img, dtype=bool)
 
-        cv2.imwrite("./web/export_img/export.png", img)
+        cv2.imwrite("./web/export_img/export.jpg", img)
 
         self.white = self.array.sum()
 
@@ -47,8 +47,8 @@ class xy_image:
         # function to find a white pixel in the image given a point
         for i in range(r, len(self.array)):
             for j in range(c, len(self.array[0])):
-                if self.array[i][j]:
-                    self.array[i][j] = False
+                if self.array[i, j]:
+                    self.array[i, j] = False
                     return (i, j)
         return [-1, -1]
 
@@ -83,6 +83,7 @@ class xy_image:
                 path.append(p)
         # performance testing ---
         # end = time.time()
+        print(len(path), whites)
         return path
 
 
@@ -91,5 +92,5 @@ class write_img:
         data = None
         with open(path, "rb") as file:
             data = file.read()
-        with open("./web/upload_img/img.png", "wb") as file:
+        with open("./web/upload_img/img.jpg", "wb") as file:
             file.write(data)
