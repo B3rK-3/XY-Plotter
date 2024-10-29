@@ -82,10 +82,10 @@ def findPath():
 
 
 def removeFiles(w, w1):
-    if os.path.isfile("./web/upload_img/img.png"):
-        os.remove("./web/upload_img/img.png")
-    if os.path.isfile("./web/export_img/export.png"):
-        os.remove("./web/export_img/export.png")
+    if os.path.isfile("./web/upload_img/img.jpg"):
+        os.remove("./web/upload_img/img.jpg")
+    if os.path.isfile("./web/export_img/export.jpg"):
+        os.remove("./web/export_img/export.jpg")
     exit()
 
 
