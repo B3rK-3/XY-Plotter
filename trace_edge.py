@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from collections import deque
 
-
 class xy_image:
     def __init__(self):
         # Read the original image
@@ -83,7 +82,6 @@ class xy_image:
                 path.append(p)
         # performance testing ---
         # end = time.time()
-        print(len(path), whites)
         return path
 
 
