@@ -11,9 +11,6 @@
 </head>
 
 <body>
-  <div style="display: flex;justify-content: center;margin-bottom: -5px;">
-    <button id="file-button" class="button agave" style="margin-bottom: 10px;">Select Image</button>
-  </div>
   <div style="display: flex;flex-direction: row;justify-content: center;gap: 10px;margin-bottom: 5px;">
     <div class="img-placeholder">
       <img alt="Select An Image" id="upload-img" class="img agave">
@@ -22,13 +19,25 @@
       <img alt="Select An Image" id="export-img" class="img agave">
     </div>
   </div>
+  <div style="display: flex;justify-content: center;margin-bottom: -5px;">
+    <button id="file-button" class="button agave" style="margin-bottom: 10px;">Select Image</button>
+  </div>
   <div style="display: flex; flex-direction: column;gap: 5px; font-weight: 600;">
 
-    <div class="center agave"><span style="font-size: 17px;">Board Height (cm): </span><input id="height" placeholder="Ex: 200"
-        class="board-vals agave"></div>
+    <div class="center agave"><span style="font-size: 17px;">Board Height (cm): </span><input id="height"
+        placeholder="Ex: 200" class="board-vals agave"></div>
 
-    <div class="center agave"><span style="font-size: 17px;">Board Width (cm): </span><input id="width" placeholder="Ex: 400"
-        class="board-vals agave">
+    <div class="center agave"><span style="font-size: 17px;">Board Width (cm): </span><input id="width"
+        placeholder="Ex: 400" class="board-vals agave">
+    </div>
+    <div class="center agave sizes">
+      <span style="font-size: 17px; font-weight: 600;">Height (cm):</span>
+      <input id="hSize" placeholder="Default: image height" class="board-vals agave">
+    </div>
+
+    <div class="center agave sizes">
+      <span style="font-size: 17px; font-weight: 600;">Width (cm):</span>
+      <input id="wSize" placeholder="Default: image width" class="board-vals agave">
     </div>
 
     <div class="center agave">

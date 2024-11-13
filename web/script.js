@@ -1,6 +1,8 @@
 const fileButton = document.getElementById('file-button');
-const h = document.getElementById('height');
-const w = document.getElementById('width');
+const bH = document.getElementById('height');
+const bW = document.getElementById('width');
+const dH = document.getElementById('hSize');
+const dW = document.getElementById('wSize');
 const uploadImg = document.getElementById('upload-img');
 const exportImg = document.getElementById('export-img');
 const pathButton = document.getElementById('path-button');
@@ -8,7 +10,7 @@ const pathFound = document.getElementById('path-found');
 let isTraced = 1;
 
 fileButton.onclick = async function () {
-  let notSelected = await eel.selectFolder()();
+  let notSelected = await eel.selectFile()();
   if (notSelected === 0) {
     pathFound.innerHTML = 'Not Executed!';
     let imgUploaded = await eel.writeImg()();// Wait for trace_edge to complete processing
@@ -42,10 +44,18 @@ pathButton.onclick = async function () {
   }
 }
 
-h.addEventListener('input', (event) => {
+bH.addEventListener('input', (event) => {
   eel.setHeight(event.target.value);
 });
 
-w.addEventListener('input', (event) => {
-  eel.setHeight(event.target.value);
+bW.addEventListener('input', (event) => {
+  eel.setWidth(event.target.value);
 });
+
+/*dH.addEventListener('change', (event) => {
+  eel.setDheight(event.target.value);
+});*/
+
+/*dW.addEventListener('change', (event) => {
+  eel.setDwidth(event.target.value);
+}); */

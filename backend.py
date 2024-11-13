@@ -3,17 +3,21 @@ import tkinter
 from tkinter import filedialog
 from trace_edge import xy_image, write_img
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 eel.init("web")
 
 path = []
 height = 0
 width = 0
+dHeight = 0
+dWidth = 0
 xy_plotter = None
-path = None
+
 
 @eel.expose
-def selectFolder():
+def selectFile():
     global path
     global c
     # Initialize tk object
@@ -48,6 +52,24 @@ def setHeight(h):
 
 
 @eel.expose
+def setDheight(h):
+    global dHeight
+    print(h)
+    dHeight = h
+    if dWidth:
+        xy_plotter.detect_edge(dHeight, dWidth)
+
+
+@eel.expose
+def setDwidth(w):
+    global dWidth
+    print(w)
+    dWidth = w
+    if dHeight:
+        xy_plotter.detect_edge(dHeight, dWidth)
+
+
+@eel.expose
 def jsPrint(msg):
     print(msg)
 
@@ -62,9 +84,8 @@ def writeImg():
 def trace_edge():
     global xy_plotter
     global path
-    path = []
-    xy_plotter = xy_image()
-    xy_plotter.detect_edge()
+    xy_plotter = xy_image(30)
+    xy_plotter.detect_edge(None, None)
     return 0
 
 
@@ -72,12 +93,13 @@ def trace_edge():
 def findPath():
     global path
     if xy_plotter:
-        print('finding path')
+        print("finding path")
         path = xy_plotter.findPath()
-        print('found path')
+        print("found path")
+        plot()
         return 0
     else:
-        print('no image')
+        print("no image")
         return 1
 
 
@@ -89,5 +111,12 @@ def removeFiles(w, w1):
     exit()
 
 
-# Start the index.html file
+def plot():
+    ypoints = np.array([x[0] for x in path])
+    xpoints = np.array([x[1] for x in path])
+    plt.plot(xpoints, ypoints, ".")
+    plt.gca().invert_yaxis()
+    plt.show()
+
+
 eel.start("index.html", size=(500, 500), close_callback=removeFiles)
