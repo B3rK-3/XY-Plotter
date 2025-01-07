@@ -1,0 +1,5 @@
+eel
+tkinter
+matplotlib
+numpy
+opencv

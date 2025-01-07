@@ -5,7 +5,8 @@ from trace_edge import xy_image, write_img
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-
+import tracemalloc
+tracemalloc.start()
 eel.init("web")
 
 path = []
@@ -97,6 +98,7 @@ def findPath():
         path = xy_plotter.findPath()
         print("found path")
         plot()
+        print(tracemalloc.get_traced_memory())
         return 0
     else:
         print("no image")

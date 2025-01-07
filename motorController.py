@@ -1,4 +1,4 @@
-""" ""
+"""
 Positon can be determined by setting two circle equations equal to each other.
 x^2 + y^2 = r^2
 r -> is the length of the belt
@@ -20,6 +20,7 @@ import math
 
 class Instructions:
     def __init__(self, w, h, wPrintHead, hPrintHead, motorTurn):
+        ""
         self.boardW = w  # The board width in cm
         self.boardH = h  # the board height in cm
         self.wPrintHead = wPrintHead  # width of print head

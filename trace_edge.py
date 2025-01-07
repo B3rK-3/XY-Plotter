@@ -5,6 +5,7 @@ class xy_image:
     def __init__(self, base):
         # Read the original image
         self.img = cv2.imread("./web/upload_img/img.jpg")
+        self.base = 50
 
     def detect_edge(self, h, w, blur_ksize=5, canny_threshold1=40, canny_threshold2=170):
         if h and w:        
