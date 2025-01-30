@@ -1,10 +1,16 @@
 import cv2
 from collections import deque
+import base64
+from numpy import frombuffer, uint8
 
 class xy_image:
-    def __init__(self, base):
+    def __init__(self, base, base64IMAGE):
         # Read the original image
-        self.img = cv2.imread("./web/upload_img/img.jpg")
+        base64String = base64IMAGE.split(',')[-1]
+        imgData = base64.b64decode(base64String)
+        npArr = frombuffer(imgData, uint8)
+        
+        self.img = cv2.imdecode(npArr, cv2.IMREAD_COLOR)
         self.base = 50
 
     def detect_edge(self, h, w, blur_ksize=5, canny_threshold1=40, canny_threshold2=170):
@@ -20,8 +26,9 @@ class xy_image:
         # Perform Canny edge detection
         self.array = cv2.Canny(img_blur, canny_threshold1, canny_threshold2)
     
-    
-        cv2.imwrite("./web/export_img/export.jpg", self.array)
+        _, buffer = cv2.imencode('.jpg', self.array)
+        base64_string = base64.b64encode(buffer).decode("utf-8")
+        return f"data:image/jpeg;base64,{base64_string}"
 
     def search(self, y, x):
         rows, cols = self.array.shape[:2]

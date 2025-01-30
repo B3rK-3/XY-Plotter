@@ -41,15 +41,15 @@ body {
 }
 
 .img {
-    max-height: 200px;
-    max-width: 210px;
+    min-width: 200px;
+    max-height: 40vh;
+    max-width: 40vh;
     border-radius: 5px;
 }
 
 .img-placeholder {
     min-height: 100px;
-    max-width: 230px;
-    max-height: 200px;
+    max-width: 45vh;
     border-radius: 10px;
     background-color: rgb(176, 168, 168);
     display: flex;

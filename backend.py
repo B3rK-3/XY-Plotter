@@ -39,6 +39,9 @@ def selectFile():
     else:
         return 1
 
+@eel.expose
+def postFile(file):
+    print(file)
 
 @eel.expose
 def setWidth(w):
@@ -82,12 +85,11 @@ def writeImg():
 
 
 @eel.expose
-def trace_edge():
+def trace_edge(base64IMAGE):
     global xy_plotter
     global path
-    xy_plotter = xy_image(30)
-    xy_plotter.detect_edge(None, None)
-    return 0
+    xy_plotter = xy_image(30, base64IMAGE)
+    return xy_plotter.detect_edge(None, None)
 
 
 @eel.expose
