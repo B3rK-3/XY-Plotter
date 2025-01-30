@@ -123,4 +123,4 @@ def plot():
     plt.show()
 
 
-eel.start("index.html", size=(500, 500), close_callback=removeFiles)
+eel.start("index.html", size=(500, 500), close_callback=removeFiles, host='0.0.0.0', port=80)
