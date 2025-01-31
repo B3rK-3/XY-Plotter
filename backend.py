@@ -1,11 +1,12 @@
 import eel
-import tkinter
-from tkinter import filedialog
 from trace_edge import xy_image, write_img
 import os
-import matplotlib.pyplot as plt
 import numpy as np
 import tracemalloc
+
+
+
+print("imported")
 tracemalloc.start()
 eel.init("web")
 
@@ -15,29 +16,6 @@ width = 0
 dHeight = 0
 dWidth = 0
 xy_plotter = None
-
-
-@eel.expose
-def selectFile():
-    global path
-    global c
-    # Initialize tk object
-    root = tkinter.Tk()
-    # Set always on top for the Tk window
-    root.attributes("-topmost", True)
-    # Make it dissappear
-    root.withdraw()
-    # root.iconbitmap('logo_path') or -window_icon = ImageTk.PhotoImage(file="icon.jpg") root.iconphoto(True, window_icon)- to change upload image logo
-
-    # Open file explorer for image upload
-    directory_path = filedialog.askopenfile(
-        title="Upload Image", filetypes=[("Image Files", "*.png;*.jpeg;*.jpg")]
-    )  # return path of file
-    if directory_path is not None:
-        path = directory_path.name
-        return 0
-    else:
-        return 1
 
 @eel.expose
 def postFile(file):
@@ -99,7 +77,6 @@ def findPath():
         print("finding path")
         path = xy_plotter.findPath()
         print("found path")
-        plot()
         print(tracemalloc.get_traced_memory())
         return 0
     else:
@@ -115,12 +92,4 @@ def removeFiles(w, w1):
     exit()
 
 
-def plot():
-    ypoints = np.array([x[0] for x in path])
-    xpoints = np.array([x[1] for x in path])
-    plt.plot(xpoints, ypoints, ".")
-    plt.gca().invert_yaxis()
-    plt.show()
-
-
-eel.start("index.html", size=(500, 500), close_callback=removeFiles, host='0.0.0.0', port=80)
+eel.start("index.html", size=(500, 500), close_callback=removeFiles, host='0.0.0.0', port=8080)

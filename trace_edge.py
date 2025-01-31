@@ -77,6 +77,7 @@ class xy_image:
         # start = time.time()
 
         while found != [-1,-1]:
+            print(path)
             # if queue has elements we should continue finding from there
             if q:
                 node = q.popleft()

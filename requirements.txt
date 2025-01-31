@@ -1,5 +1,5 @@
-tkinter
-matplotlib
 numpy
-opencv
-flask
+opencv-python
+eel
+tracemalloc
+base64

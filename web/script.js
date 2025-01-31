@@ -37,10 +37,11 @@ pathButton.onclick = async function () {
         pathFound.innerHTML !== "Not Executed!" &&
         pathFound.innerHTML === "Path Found!"
     ) {
+        console.log("Can't Path Find");
         return;
-    }
-    if (isTraced === 0) {
+    } else if (pathFound.innerHTML === "Edge Traced!") {
         pathFound.innerHTML = "Path Finding!";
+        console.log("Path Finding");
         let isPathFound = await eel.findPath()();
         if (isPathFound === 0) {
             pathFound.innerHTML = "Path Found!";
